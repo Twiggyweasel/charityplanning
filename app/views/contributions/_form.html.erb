@@ -1,0 +1,8 @@
+<%= form_for( [event, contribution]) do |f| %>
+  <% if contribution.errors.any? %>
+    <%= render "shared/errors", errors: contribution.errors %>
+  <% end %>
+  <%= f.label :amount %>
+  <%= f.number_field :amount, class: 'form-control' %>
+  <%= f.submit 'Register', class: 'btn btn-square btn-block btn-success mt-1' %>
+<% end %>

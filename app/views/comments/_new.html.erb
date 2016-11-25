@@ -1,0 +1,6 @@
+<%= form_for( [ @event, Comment.new ], remote: true) do |f| %>
+    <%= f.label :body, 'Add New Comment' %>
+    <%= f.text_area :body, size: '5x5', class: 'form-control', id: 'comment_box' %>
+    <br>
+    <%= f.submit 'Submit', class: 'btn btn-primary float-xs-right' %>
+<% end %>

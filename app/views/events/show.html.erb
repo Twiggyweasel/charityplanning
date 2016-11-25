@@ -1,0 +1,133 @@
+<%= render 'layouts/messages' %>
+
+<div class="row">
+  <!--<img src="https://placehold.it/1200x250/39BDBD/ffffff" class="img-fluid mx-auto d-block" >-->
+  <%= image_tag "mountain-wide.jpeg", class:'img-fluid mx-auto d-block', :style => 'max-height:350px' %>
+  
+</div>
+<div class='row mt-1'>
+  <div class='col-xs-8 pl-0'>
+    <div class="card card-block item-square">
+    <div class="row pl-1">
+      
+      <h1><%= @event.name %></h1>
+      <h3>
+      <!--<#%= @event.date.strftime("%A, %B %d %Y") %>-->
+      </h3>
+    </div>
+    <div class='row mt-1 pl-1'>
+      <%= link_to 'Register', new_event_attendee_path(@event), class: 'btn btn-square btn-success' %>
+    <!--  <#% if !@attending %>-->
+    <!--<div class="btn-group">-->
+    <!--  <button type="button" class="btn btn-success btn-square dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+    <!--    Register-->
+    <!--  </button>-->
+    <!--  <div class="dropdown-menu">-->
+    <!--    <#%= link_to 'Single Registration', new_event_attendee_path(@event), class: "dropdown-item" %>-->
+    <!--    <#%= link_to 'Team Registration', new_team_path(:event => @event), class: "dropdown-item" %>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<#% else %>-->
+    <!--<#%= link_to event_attendee_path(@event, current_user.attendees.find_by(event_id: @event)) do %>-->
+    <!--  <btn class='btn btn-success'>Manage Registration <#% if !current_user.attendees.find_by(event_id: @event).is_paid %><i class='fa fa-exclamation-circle'></i><#% end %></btn>-->
+    <!--<#% end %>-->
+    <!--<#% end %>-->
+    <%= link_to 'Contribute', new_event_contribution_path(@event), class: 'btn btn-warning btn-square' %> 
+    <ul class='nav navbar-nav float-xs-right pr-1'>
+      <li class='nav-item'><a class='nav-link'><i class='fa fa-facebook-square fa-2x social-icon' style='color:#3b5998;'></i></a></li>
+      <li class='nav-item'><a class='nav-link'><i class='fa fa-twitter-square fa-2x social-icon' style='color:#00aced;'></i></a></li>
+      <li class='nav-item'><a class='nav-link'><i class='fa fa-google-plus-square fa-2x social-icon' style='color:#dd4b39;'></i></a></li>
+      <li class='nav-item'><a class='nav-link'><i class='fa fa-reddit-square fa-2x social-icon' style='color:#FF5700;'></i></a></li>
+    </ul>
+    </div>
+    </div>
+
+    <div class="row my-3 px-1">
+      <div class="col-xs-4 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1>0</h1>
+          <p>Teams</p>
+        </div>
+      </div>
+      <div class="col-xs-4 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.total_attending %></h1>
+          <p>Participants</p>
+        </div>
+      </div>
+      <div class="col-xs-4 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.contributions.count %></h1>
+          <p>Donations</p>
+        </div>
+      </div>
+    </div>
+    <div class='row px-1'>
+      <div class='card card-block item-square'>
+        <% if !@event.desc.nil? %>
+        <%= @event.desc.html_safe %>
+        <% end %>
+      </div>
+    </div>
+   
+    <div class='row px-1'>
+      <h2>Comments</h2>
+      
+      <div class='row px-1'>
+        <div class='card card-block'>
+          
+          <%= render 'comments/new', event: @event %>
+          
+        </div>
+      </div>
+      <div id='comments'>
+        
+        <%= render @event.comments %>
+      </div>
+    </div>
+  </div>
+
+ <div class='col-xs-4 card-style'>
+
+    <div class="row py-1 px-1">
+      <h5>Achieved</h5>
+      <h3><%= number_to_currency(@event.raised) %></h3>
+      <progress class="progress progress-danger" value="<%= @event.percent_remaining %>" max="100"></progress>
+      <h4>Goal: <%= number_to_currency(@event.goal) %></h4>
+    </div>
+    <div class="row" style='background-color:#474747; color:white; padding-top: 8px; padding-bottom: 5px;'>
+      <h4 class='px-1'><i class='fa fa-group'></i> Top Teams</h4>
+    </div>
+    <div class='row'>
+      <ul class="list-unstyled pl-1 pt-1">
+        <li><strong>Team Kaityln:</strong> $1,255.14</li>
+        <li><strong>Tanner's Team:</strong> $350.00</li>
+        <li><strong>Team Ethan Robert:</strong> $349.00</li>
+        <li><strong>Noley Poley:</strong> $53.00</li>
+      </ul>
+    </div>
+    <div class="row" style='background-color:#474747; color:white; padding-top: 8px; padding-bottom: 5px;'>
+      <h4 class='px-1'><i class='fa fa-user'></i> Top Fundraisers</h4>
+    </div>
+    <div class='row'>
+      <ul class="list-unstyled pl-1 pt-1">
+        <% @top_fundraisers.each do |fundraiser| %>
+          <li><strong>Anonymous</strong> <%= number_to_currency(fundraiser.amount) %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="row" style='background-color:#474747; color:white; padding-top: 8px; padding-bottom: 5px;'>
+      <h4 class='px-1'><i class='fa fa-map-marker'></i> Event Location</h4>
+    </div>
+    <div class='row'>
+      <div class="embed-responsive embed-responsive-4by3">
+      <iframe class='embed-responsive-item' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.552581980637!2d-89.99891408429679!3d35.14283728032352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x887f80a6bc0ee00f%3A0x70a1a47ed7781528!2sOverton+Park+Conservancy!5e0!3m2!1sen!2sus!4v1477881559446" width="375" height="250" frameborder="0" style="border:1" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class='row pl-1 pt-1'>
+      <h3><%= @event.venue_name %></h3>
+      <p><%= @event.street %> <%= @event.city %>, <%= @event.state %> <%= @event.zip %></p>
+    </div>
+
+  </div>
+</div>

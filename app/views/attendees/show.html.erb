@@ -1,0 +1,69 @@
+<%= render 'shared/page_title', title: 'Registration Details for ' + @attendee.event.name %>
+
+<div class='row'>
+    <div class='col-md-8'>
+        <div class='row'>
+        <div class='card card-block'>
+            <h3 class='card-title'>Include Users Name</h3>
+            <p>Registration: Adult | Shirt Size: <%= @attendee.shirt_size %></p>
+            <p>Team: <!--<#%= @attendee.team.name %> <#%= link_to 'Change Team', edit_event_attendee_path(@attendee.event_id), class: 'btn btn-primary btn-sm' %> --></p>     
+            
+
+        </div>
+        </div>
+        <div class='row'>
+            <div class='card card-block'>
+                <h3 class='card-title'>Guests <%= link_to 'Add Guest', new_event_attendee_path(@event, @attendee), class: 'btn btn-primary btn-square float-xs-right' %></h3>
+                <br>
+                <table class='table'>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Registration</th>
+                        <th>Shirt Size </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @attendee.guests.each do |guest| %>
+                      <tr>
+                        <td><%= guest.name %> </td>
+                        <td><%= number_to_currency(guest.fee) %> </td>
+                        <td><%= guest.shirt_size %> </td>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-4'>
+        <div class='card card-block'>
+            <table class='table'>
+                <thead>                
+                    <tr>
+                        <th>Type</th>
+                        <th>Count</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single Registration</td>
+                        <td>1x</td>
+                        <td><%= number_to_currency(@attendee.fee) %></td>
+                    </tr>
+                    <tr>
+                        <td>Guests</td>
+                        <td><%= @attendee.guests.count %>x</td>
+                        <td><%= number_to_currency(@attendee.fee * 3) %></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>Total:</td>
+                        <td><%= number_to_currency(@attendee.fee * 4) %></td>
+                    </tr>
+                </tbody>
+            </table>
+                        <a href='#' class='btn btn-success btn-square'>Submit Payment</a>
+        </div>
+    </div>
+</div>

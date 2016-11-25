@@ -1,0 +1,45 @@
+<%= form_for( [event, attendee]) do |f| %>
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <% if attendee.errors.any? %>
+      <%= render "shared/errors", errors: attendee.errors %>
+    <% end %>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <div class='card card-block square-item'>
+      <%= f.label :fee, 'Registration Fee' %>
+      <%= f.number_field :fee, class: 'form-control' %>
+    
+      <%= f.label :shirt_size %>
+      <%= f.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+    
+    </div>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <div class='card card-block square-item'>
+      <h3 class='card-tile'>Register a Guest (optional):</h3>
+      <%= f.fields_for :guests do |g| %>
+        <%= g.label :name, 'Guest Name' %>
+        <%= g.text_field :name, class: 'form-control' %>
+        
+        <%= g.label :fee, 'Guest Registration Fee' %>
+        <%= g.number_field :fee, class: 'form-control' %>
+        
+        <%= g.label :shirt_size %>
+        <%= g.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <div class='card card-block square-item'>
+      <%= f.submit 'Register', class: 'btn btn-square btn-block btn-success mt-1' %>
+    </div>
+  </div>
+</div>
+<% end %>
