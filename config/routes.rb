@@ -7,5 +7,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create]
     resources :contributions
     resources :attendees, only: [:new, :create, :show]
+    resources :registration_fees
+    resources :coupons
+    get '/attributes', to: 'events#event_attributes'
   end
+  
+  
+  resources :organizations
 end

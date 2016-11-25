@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125172409) do
+ActiveRecord::Schema.define(version: 20161125195101) do
 
   create_table "attendees", force: :cascade do |t|
     t.float    "fee"
     t.string   "shirt_size"
-    t.boolean  "paid",       default: false
+    t.boolean  "paid",            default: false
     t.integer  "event_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "organization_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.index ["event_id"], name: "index_attendees_on_event_id"
+    t.index ["organization_id"], name: "index_attendees_on_organization_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -41,6 +43,18 @@ ActiveRecord::Schema.define(version: 20161125172409) do
     t.index ["event_id"], name: "index_contributions_on_event_id"
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string   "promo_code"
+    t.string   "description"
+    t.float    "discount"
+    t.date     "start_date"
+    t.date     "expiration"
+    t.integer  "event_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["event_id"], name: "index_coupons_on_event_id"
+  end
+
   create_table "event_sizes", force: :cascade do |t|
     t.integer "size_id"
     t.integer "event_id"
@@ -49,22 +63,26 @@ ActiveRecord::Schema.define(version: 20161125172409) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string  "name"
-    t.string  "venue_name"
-    t.string  "street"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.text    "desc"
-    t.text    "teaser"
-    t.float   "goal"
-    t.float   "raised"
-    t.date    "date"
-    t.date    "registration_start"
-    t.time    "start_time"
-    t.boolean "has_donation",       default: false
-    t.boolean "is_private",         default: true
-    t.boolean "has_shirt",          default: true
+    t.string   "name"
+    t.string   "venue_name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.text     "desc"
+    t.text     "teaser"
+    t.float    "goal"
+    t.float    "raised"
+    t.date     "date"
+    t.date     "registration_start"
+    t.time     "start_time"
+    t.boolean  "has_donation",       default: false
+    t.boolean  "is_private",         default: true
+    t.boolean  "has_shirt",          default: true
+    t.integer  "organization_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["organization_id"], name: "index_events_on_organization_id"
   end
 
   create_table "guests", force: :cascade do |t|
@@ -76,6 +94,22 @@ ActiveRecord::Schema.define(version: 20161125172409) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["attendee_id"], name: "index_guests_on_attendee_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "registration_fees", force: :cascade do |t|
+    t.string   "name"
+    t.float    "amount"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_registration_fees_on_event_id"
   end
 
   create_table "sizes", force: :cascade do |t|

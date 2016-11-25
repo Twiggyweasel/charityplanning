@@ -14,5 +14,5 @@ Size.create! label: 'XXL'
 Size.create! label: 'XXXL'
 
 
-Event.create! name: 'Magic Event', desc: 'This is a test!', teaser: 'so much test right now', venue_name: 'Granite Park', street: '1234 Test St', city: 'lenexa', state: 'KS', zip: '66215', date: '2016-12-30', registration_start: '2016-7-12', start_time: '2000-01-01 21:30:00', goal: 1500.00, is_private: false, size_ids: [1,2,3,4]
-Event.create! name: 'Magic Event 2', desc: 'This is a test!', teaser: 'so much test right now', venue_name: 'Granite Park', street: '1234 Test St', city: 'lenexa', state: 'KS', zip: '66215', date: '2016-12-30', registration_start: '2016-7-12', start_time: '2000-01-01 21:30:00', goal: 1500.00, has_donation: true, size_ids: [1,2,3]
+Event.create! name: 'Magic Event', desc: 'This is a test!', teaser: 'so much test right now', venue_name: 'Granite Park', street: '1234 Test St', city: 'lenexa', state: 'KS', zip: '66215', date: '2016-12-30', registration_start: '2016-7-12', start_time: '2000-01-01 21:30:00', goal: 1500.00, is_private: false, organization_id: 1, size_ids: [1,2,3,4]
+Event.create! name: 'Magic Event 2', desc: 'This is a test!', teaser: 'so much test right now', venue_name: 'Granite Park', street: '1234 Test St', city: 'lenexa', state: 'KS', zip: '66215', date: '2016-12-30', registration_start: '2016-7-12', start_time: '2000-01-01 21:30:00', goal: 1500.00, has_donation: true, organization_id: 1, size_ids: [1,2,3]

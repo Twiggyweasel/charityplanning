@@ -5,6 +5,7 @@ class CreateAttendee < ActiveRecord::Migration[5.0]
       t.string :shirt_size
       t.boolean :paid, default: false
       t.references :event, foreign_key: true
+      t.references :organization, foreign_key: true
       
       t.timestamps
     end

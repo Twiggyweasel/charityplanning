@@ -6,7 +6,6 @@ class EventsController < ApplicationController
   
   def show
     
-    
     @top_fundraisers = @event.contributions.order(amount: :desc).limit(5)
   end
   
@@ -58,6 +57,10 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def event_attributes
+    @event = Event.find(params[:event_id])
   end
   
   private 

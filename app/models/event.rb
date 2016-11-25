@@ -5,13 +5,22 @@ class Event < ApplicationRecord
   has_many :guests, through: :attendees
   has_many :event_sizes
   has_many :sizes, through: :event_sizes
+  has_many :coupons
+  has_many :registration_fees
   
-  #validates :name, presence: true
+  
+  validates :name, presence: true
   
   
   after_find do
     self.update_column(:raised, Contribution.where(event_id: self.id).pluck(:amount).sum)  
     #self.raised = Contribution.where(event_id: self.id).pluck(:amount).sum
+  end
+  
+  after_save do 
+    if self.sizes.count == 0 
+      self.update_column(:has_shirt, false)
+    end
   end
   
   def total_attending

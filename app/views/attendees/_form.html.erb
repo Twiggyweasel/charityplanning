@@ -11,10 +11,11 @@
     <div class='card card-block square-item'>
       <%= f.label :fee, 'Registration Fee' %>
       <%= f.number_field :fee, class: 'form-control' %>
-    
-      <%= f.label :shirt_size %>
-      <%= f.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
-    
+      
+      <% if event.has_shirt? %>
+        <%= f.label :shirt_size %>
+        <%= f.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -29,8 +30,10 @@
         <%= g.label :fee, 'Guest Registration Fee' %>
         <%= g.number_field :fee, class: 'form-control' %>
         
-        <%= g.label :shirt_size %>
-        <%= g.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+        <% if event.has_shirt? %>
+          <%= g.label :shirt_size %>
+          <%= g.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+        <% end %>
       <% end %>
     </div>
   </div>
