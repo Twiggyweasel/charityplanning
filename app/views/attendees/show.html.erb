@@ -38,6 +38,7 @@
     </div>
     <div class='col-md-4'>
         <div class='card card-block'>
+          <h3 class='card-title'>Registration Cart</h3>
             <table class='table'>
                 <thead>                
                     <tr>
@@ -55,11 +56,11 @@
                     <tr>
                         <td>Guests</td>
                         <td><%= @attendee.guests.count %>x</td>
-                        <td><%= number_to_currency(@attendee.fee * 3) %></td>
+                        <td><%= number_to_currency(@attendee.guests_fee_total) %></td>
                     </tr>
                     <tr>
                         <td colspan='2'>Total:</td>
-                        <td><%= number_to_currency(@attendee.fee * 4) %></td>
+                        <td><%= number_to_currency(@attendee.fee + @attendee.guests_fee_total) %></td>
                     </tr>
                 </tbody>
             </table>

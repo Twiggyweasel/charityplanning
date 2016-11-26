@@ -13,7 +13,9 @@ class Event < ApplicationRecord
   
   
   after_find do
-    self.update_column(:raised, Contribution.where(event_id: self.id).pluck(:amount).sum)  
+    if Contribution.where(event_id: self.id).where('created_at >= ?', 1.hour.ago).count != 0
+      self.update_column(:raised, Contribution.where(event_id: self.id).pluck(:amount).sum)  
+    end
     #self.raised = Contribution.where(event_id: self.id).pluck(:amount).sum
   end
   

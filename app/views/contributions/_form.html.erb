@@ -2,7 +2,37 @@
   <% if contribution.errors.any? %>
     <%= render "shared/errors", errors: contribution.errors %>
   <% end %>
-  <%= f.label :amount %>
-  <%= f.number_field :amount, class: 'form-control' %>
-  <%= f.submit 'Register', class: 'btn btn-square btn-block btn-success mt-1' %>
+  <div class='row'>
+    <div class='col-xs-12'>
+    <%= f.label :amount %>
+    <%= f.number_field :amount, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='row mt-1'>
+    <div class='col-xs-12'>      
+    <%= f.check_box :in_honor %>
+  
+    <%= f.label :in_honor, 'Include a Dedication' %>
+    </div>
+  </div>
+  <div class='row' id='honoree' style='display:none;'>
+    <div class='col-xs-12'>
+    <%= f.label :honoree, 'In Honor Of/In Memory Of' %>
+    <%= f.text_field :honoree, class: 'form-control' %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-xs-12'>
+    <%= f.submit 'Submit Contribute', class: 'btn btn-square btn-block btn-success mt-1' %>
+    </div>
+  </div>
 <% end %>
+
+<script>
+  $('#contribution_in_honor').change(function() {
+    if($(this).is(":checked")) {
+      $('#honoree').show();
+    } else
+      $('#honoree').hide();     
+    });
+</script>

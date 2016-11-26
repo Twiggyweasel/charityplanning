@@ -1,0 +1,91 @@
+<!-- Nav tabs -->
+<div class='row'>
+  <div class='col-xs-12'>
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#summary" role="tab">Summary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#fees" role="tab">Registration Fees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#coupons" role="tab">Coupons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#attendees" role="tab">Attendees and Guests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#teams" role="tab">Teams</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class='row mt-1'>
+  <div class='col-xs-12'>
+    <div class="tab-content">
+  <div class="tab-pane fade in active" id="summary" role="tabpanel">
+    ...
+  </div>
+  <div class="tab-pane fade" id="fees" role="tabpanel">
+    <div class='col-xs-12'>
+      <div class='card card-block'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Created On</th>
+              <th>Actions</th>
+            </tr>
+            <tbody>
+              <% @event.registration_fees.each do |fee| %>
+              <tr>
+                <td><%= fee.name %></td>
+                <td><%= number_to_currency(fee.amount) %></td>
+                <td><%= fee.created_at.strftime("%B %d, %Y") %></td>
+                <td><%= link_to 'Edit', edit_event_registration_fee_path(@event, fee) %> | <a href=''>Delete</a></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="coupons" role="tabpanel">
+    <div class='col-xs-12'>
+      <div class='card card-block'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Promo Code</th>
+              <th>Description</th>
+              <th>Discount</th>
+              <th>Start Date</th>
+              <th>Valid Through</th>
+              <th>Actions</th>
+            </tr>
+            <tbody>
+              <% @event.coupons.each do |coupon| %>
+              <tr>
+                <td><%= coupon.promo_code %></td>
+                <td><%= coupon.description %></td>
+                <td><%= number_to_currency(coupon.discount) %></td>
+                <td><%= coupon.start_date.strftime("%B %d, %Y") %></td>
+                <td><%= coupon.expiration.strftime("%B %d, %Y") %></td>
+                <td><%= link_to 'Edit', edit_event_coupon_path(@event, coupon) %> | <a href=''>Delete</a></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="attendees" role="tabpanel">...</div>
+  <div class="tab-pane fade" id="teams" role="tabpanel">...</div>
+</div>
+  </div>
+</div>
+<!-- Tab panes -->
