@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.0.0.alpha5'
 gem "font-awesome-rails"
 gem 'tinymce-rails'
+
+gem 'wicked'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

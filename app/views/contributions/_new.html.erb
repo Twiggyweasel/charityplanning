@@ -1,0 +1,19 @@
+<%= form_for([@event, Contribution.new], remote: true) do |f| %>
+  <%= f.hidden_field :contribution_type, value: 'offline' %>
+
+  <div class='col-md-3'>
+    <%= f.label :contributor %>
+    <%= f.text_field :contributor, class: 'form-control', id: 'contributor'%>
+  </div>
+  <div class='col-md-3'>
+    <%= f.label :amount %>
+    <%= f.number_field :amount, class: 'form-control', id: 'contribution_amount' %>
+  </div>
+  <div class='col-md-3'>
+    <%= f.label :honoree %>
+    <%= f.text_field :honoree, class: 'form-control', id: 'honoree' %>
+  </div>  
+  <div class='col-md-3' style='padding-top: 1.80rem;'>
+  <%= f.submit 'Create Offline Contribution', class: 'btn btn-primary' %>
+  </div>
+<% end %>

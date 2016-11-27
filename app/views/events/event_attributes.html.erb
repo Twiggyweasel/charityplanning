@@ -17,6 +17,9 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#teams" role="tab">Teams</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#contributions" role="tab">Contributions</a>
+      </li>
     </ul>
   </div>
 </div>
@@ -30,7 +33,10 @@
   <div class="tab-pane fade" id="fees" role="tabpanel">
     <div class='col-xs-12'>
       <div class='card card-block'>
-        <table class='table'>
+        <div class='row py-1'>
+          <%= render 'registration_fees/new', event: @event %>
+        </div>
+        <table class='table mt-1'>
           <thead>
             <tr>
               <th>Name</th>
@@ -38,17 +44,10 @@
               <th>Created On</th>
               <th>Actions</th>
             </tr>
-            <tbody>
-              <% @event.registration_fees.each do |fee| %>
-              <tr>
-                <td><%= fee.name %></td>
-                <td><%= number_to_currency(fee.amount) %></td>
-                <td><%= fee.created_at.strftime("%B %d, %Y") %></td>
-                <td><%= link_to 'Edit', edit_event_registration_fee_path(@event, fee) %> | <a href=''>Delete</a></td>
-              </tr>
-              <% end %>
-            </tbody>
           </thead>
+          <tbody id='reg_fees'>
+            <%= render @event.registration_fees %>
+          </tbody>
         </table>
       </div>
     </div>
@@ -85,6 +84,74 @@
   </div>
   <div class="tab-pane fade" id="attendees" role="tabpanel">...</div>
   <div class="tab-pane fade" id="teams" role="tabpanel">...</div>
+  <div class="tab-pane fade" id="contributions" role="tabpanel">
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='card card-block'>
+          <h4 class='card-title'>Online Contributions</h4>
+          <table class='table mt-1'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Honoree</th>
+                <th>Created On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id='online_contributions'>
+              <% @event.contributions.where(:contribution_type => 'online').each do |contribution| %>
+                <tr>
+                  <td>Anonymous</td>
+                  <td><%= number_to_currency(contribution.amount) %></td>
+                  <td><% if !contribution.in_honor? %>N/A <% else %> <%= contribution.honoree %> <% end %></td>
+                  <td><%= contribution.created_at.strftime("%B %d, %Y") %></td>
+                  <td>edit | delete</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  
+  <div class='row'>
+      <div class='col-xs-12'>
+        <div class='card card-block'>
+          <h4>Offline Contributions</h4>
+          <div class='row py-1'>
+            <%= render 'contributions/new', event: @event %>
+          </div>
+          <table class='table mt-1'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Honoree</th>
+                <th>Created On</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id='offline_contributions'>
+              </tr>
+              <% @event.contributions.where(:contribution_type => 'offline').each do |contribution| %>
+              <tr>
+                <td><%= contribution.contributor %></td>
+                <td><%= number_to_currency(contribution.amount) %></td>
+                <td><% if !contribution.in_honor? %>N/A <% else %> <%= contribution.honoree %> <% end %></td>
+                <td><%= contribution.created_at.strftime("%B %d, %Y") %></td>
+                <td>edit | delete</td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
 </div>
   </div>
 </div>

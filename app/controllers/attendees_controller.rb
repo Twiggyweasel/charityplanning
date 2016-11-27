@@ -18,7 +18,7 @@ class AttendeesController < ApplicationController
         format.html { redirect_to event_attendee_url(@attendee.event_id, @attendee.id), :flash => { :success => 'Your registration was successfully completed.' }}
       else
         format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
     end
   end

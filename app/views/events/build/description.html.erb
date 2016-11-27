@@ -1,0 +1,25 @@
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <nav class='navbar bg-inverse navbar-dark'>
+      <ul class='navbar navbar-nav mb-0 text-xs-center'>
+        <li class='nav-item'><%= link_to(previous_wizard_path, class: 'nav-link text-xs-center') do %><i class='fa fa-check-circle-o fa-2x'></i><br>Event Name <% end %>
+        <li class='nav-item'><i class='fa fa-minus nav-link'></i></li>
+        <li class='nav-item'><%= link_to(wizard_path(:description), class: 'nav-link text-xs-center') do %><i class='fa fa-minus-circle fa-2x'></i><br>Event Description <% end %>
+        <li class='nav-item'><i class='fa fa-minus nav-link'></i></li>
+        <li class='nav-item'><%= link_to(previous_wizard_path, class: 'nav-link text-xs-center') do %><i class='fa fa-minus-circle fa-2x'></i><br>Fees and Discounts <% end %>
+      </ul>
+    </nav>
+  </div>
+</div>
+<%= link_to 'Previous Step', previous_wizard_path %><%= link_to 'Next Step',  next_wizard_path %>
+<%= tinymce_assets %>
+<%= tinymce %>
+
+<%= form_for @event do |f| %>
+ <%= f.label :desc, "Event Summary" %>
+    <%= f.text_area :desc, class: "tinymce", :row => 350, :cols => 120 %>
+    
+    <%= f.label :teaser, "Event Teaser" %>
+    <%= f.text_area :teaser, class: 'form-control' %>
+  <%= link_to 'Previous Step', previous_wizard_path %><%= link_to 'Next Step',  next_wizard_path %>
+<% end %>

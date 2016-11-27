@@ -1,0 +1,19 @@
+<%= form_for( [event, attendee, guest ]) do |f| %>
+  <div class='row'>
+    <div class='col-md-6 offset-md-3'>
+      <div class='card card-block'>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+        
+        <%= f.label :fee %>
+        <%= f.select(:fee, options_for_select(@event.registration_fees.collect {|x| [x.name + ' - $' + x.amount.to_s + '0', x.amount]}), {}, class: 'form-control') %>
+        
+        <%= f.label :shirt_size %>
+        <%= f.select( :shirt_size, options_for_select(@event.sizes.collect {|x| [x.label, x.label] }), {}, class: 'form-control') %>
+        <%= f.submit 'Create New Guest', class: 'btn btn-success btn-block btn-square mt-1' %>
+        <%= link_to 'Back', :back, class: 'btn btn-danger btn-block btn-square' %>
+      </div>
+    </div>
+  </div>
+  
+<% end %>

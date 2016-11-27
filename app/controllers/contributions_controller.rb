@@ -15,6 +15,8 @@ class ContributionsController < ApplicationController
     respond_to do |format|
       if @contribution.save
         format.html { redirect_to @contribution.event, :flash => { :success => 'Contribution of $' + @contribution.amount.to_s + '0 was successfully completed.' }}
+        format.js   { }
+        format.json { render :show, status: :created, location: @contribution }
       else
         format.html { render :new }
         format.json { render json: @contribution.errors, status: :unprocessable_entity }
@@ -37,7 +39,7 @@ class ContributionsController < ApplicationController
     end
     
     def contribution_params
-      params.required(:contribution).permit(:amount, :in_honor, :honoree)
+      params.required(:contribution).permit(:amount, :in_honor, :honoree, :contributor, :contribution_type)
     end
      
 end

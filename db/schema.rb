@@ -36,10 +36,12 @@ ActiveRecord::Schema.define(version: 20161125195101) do
     t.float    "amount"
     t.boolean  "in_honor"
     t.string   "honoree"
-    t.boolean  "paid",       default: true
+    t.string   "contribution_type"
+    t.string   "contributor"
+    t.boolean  "paid",              default: true
     t.integer  "event_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["event_id"], name: "index_contributions_on_event_id"
   end
 
