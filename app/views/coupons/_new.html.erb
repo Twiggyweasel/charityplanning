@@ -1,0 +1,25 @@
+<%= form_for([ event, Coupon.new], remote:true) do |f| %>
+  <div class='col-md-2'>
+  <%= f.label :promo_code %>
+  <%= f.text_field :promo_code, class: 'form-control' %>
+  </div>
+  <div class='col-md-5'>
+  <%= f.label :description %>
+  <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <div class='col-md-5'>
+  <%= f.label :discount %>
+  <%= f.number_field :discount, class: 'form-control' %>
+  </div>
+  <div class='col-md-5'>
+  <%= f.label :start_date %>
+  <%= f.date_field :start_date, class: 'form-control' %>
+  </div>
+  <div class='col-md-5'>
+  <%= f.label :expiration %>
+  <%= f.date_field :expiration, class: 'form-control' %>
+  </div>
+  <div class='col-md-2' style='padding-top: 2.1rem;'>
+  <%= f.submit 'Create Coupon', class: 'btn btn-primary' %>
+  </div>
+<% end %>

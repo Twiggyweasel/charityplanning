@@ -28,8 +28,33 @@
   <div class='col-xs-12'>
     <div class="tab-content">
   <div class="tab-pane fade in active" id="summary" role="tabpanel">
-    ...
-  </div>
+    <div class="row my-1">
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.total_attending %></h1>
+          <p>Attending</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1>0</h1>
+          <p>Teams</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= number_to_currency(@event.raised) %></h1>
+          <p>Raised</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= (@event.date - Date.today).to_i %></h1>
+          <p>Days until Event</p>
+        </div>
+      </div>
+    </div>
+  </div> 
   <div class="tab-pane fade" id="fees" role="tabpanel">
     <div class='col-xs-12'>
       <div class='card card-block'>
@@ -55,7 +80,13 @@
   <div class="tab-pane fade" id="coupons" role="tabpanel">
     <div class='col-xs-12'>
       <div class='card card-block'>
-        <table class='table'>
+        <div class='row mx-1'>
+          <h3 class='card-title'>Coupons <button class="btn btn-primary float-xs-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class='fa fa-plus'></i></button></h3>
+          <div class="collapse" id="collapseExample">
+            <%= render 'coupons/new', event: @event %>
+            </div>
+        </div>
+        <table class='table mt-1'>
           <thead>
             <tr>
               <th>Promo Code</th>
@@ -65,26 +96,79 @@
               <th>Valid Through</th>
               <th>Actions</th>
             </tr>
-            <tbody>
-              <% @event.coupons.each do |coupon| %>
-              <tr>
-                <td><%= coupon.promo_code %></td>
-                <td><%= coupon.description %></td>
-                <td><%= number_to_currency(coupon.discount) %></td>
-                <td><%= coupon.start_date.strftime("%B %d, %Y") %></td>
-                <td><%= coupon.expiration.strftime("%B %d, %Y") %></td>
-                <td><%= link_to 'Edit', edit_event_coupon_path(@event, coupon) %> | <a href=''>Delete</a></td>
-              </tr>
-              <% end %>
+            <tbody id='promos'>
+              <%= render @event.coupons %>
             </tbody>
           </thead>
         </table>
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="attendees" role="tabpanel">...</div>
+  
+  
+  <div class="tab-pane fade" id="attendees" role="tabpanel">
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='card card-block'>
+          <h4 class='card-title'>Attendees</h4>
+          
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Attendee Name</th>
+                <th>Registration</th>
+                <th>Confirmed</th>
+                <th>Shirt Size</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @event.attendees.each do |attendee| %>
+              <tr>
+                <td>User Name</td>
+                <td><%= number_to_currency(attendee.fee) %></td>
+                <td><%= attendee.paid? %></td>
+                <td><% if !@event.has_shirt? %> N/A <% else %> <%= attendee.shirt_size %> <% end %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
   <div class="tab-pane fade" id="teams" role="tabpanel">...</div>
+  
+  
   <div class="tab-pane fade" id="contributions" role="tabpanel">
+    <div class="row my-1">
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.contributions.count %></h1>
+          <p>Total Contributions</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.contributions.where(:contribution_type => 'online').count %></h1>
+          <p>Online Contributions</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= @event.contributions.where(:contribution_type => 'offline').count %></h1>
+          <p>Offline Contributions</p>
+        </div>
+      </div>
+      <div class="col-xs-3 text-xs-center">
+        <div class="card card-block card-callout mb-0">
+          <h1><%= number_to_currency(@event.raised) %></h1>
+          <p>Total Raised</p>
+        </div>
+      </div>
+    </div>
     <div class='row'>
       <div class='col-xs-12'>
         <div class='card card-block'>

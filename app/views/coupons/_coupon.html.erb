@@ -1,0 +1,8 @@
+<tr>
+  <td><%= coupon.promo_code %></td>
+  <td><%= coupon.description %></td>
+  <td><%= number_to_currency(coupon.discount) %></td>
+  <td><%= coupon.start_date.strftime("%B %d, %Y") %></td>
+  <td><%= coupon.expiration.strftime("%B %d, %Y") %></td>
+  <td><%= link_to 'Edit', edit_event_registration_fee_path(@event, coupon) %> | <a href=''>Delete</a></td>
+</tr>
