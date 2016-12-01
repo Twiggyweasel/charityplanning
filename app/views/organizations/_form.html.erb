@@ -1,0 +1,13 @@
+<%= form_for organization do |f|  %>
+<%= f.label :name %>
+<%= f.text_field :name, class: 'form-control' %>
+
+<%= f.label :desc %>
+<%= f.text_area :desc, class: 'form-control' %>
+
+<%= f.label :org_cover %>
+<%= f.file_field :org_cover, class: 'form-control', accept: 'image/jpeg,image/gif,image/png' %>
+
+<%= f.submit %>
+
+<% end %>
