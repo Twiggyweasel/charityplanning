@@ -34,8 +34,8 @@ gem 'bootstrap', '~> 4.0.0.alpha5'
 gem "font-awesome-rails"
 gem 'tinymce-rails'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
-#gem "fog-aws"
-gem 'fog', '1.23.0'
+gem "fog-aws"
+
 
 gem 'wicked'
 source 'https://rails-assets.org' do
