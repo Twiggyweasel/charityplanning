@@ -9,6 +9,9 @@
     <%= f.text_field :name, class: 'form-control' %>
     <br>
     
+    <%= f.label :event_cover, 'Event Cover Photo' %>
+    <%= f.file_field :event_cover, class: 'form-control' %>
+    
     <%= f.label :desc, "Event Summary" %>
     <%= f.text_area :desc, class: "tinymce", :row => 350, :cols => 120 %>
     

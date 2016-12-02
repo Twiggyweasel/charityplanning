@@ -11,6 +11,7 @@ class Event < ApplicationRecord
   
   validates :name, presence: true
   
+  mount_uploader :event_cover, EventCoverUploader
   
   after_find do
     if Contribution.where(event_id: self.id).where('created_at >= ?', 1.hour.ago).count != 0
