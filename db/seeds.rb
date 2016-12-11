@@ -13,6 +13,11 @@ Size.create! label: 'XL'
 Size.create! label: 'XXL'
 Size.create! label: 'XXXL'
 
+Role.create! name: 'user'
+Role.create! name: 'event_coordinator'
+Role.create! name: 'organization_admin'
+Role.create! name: 'admin'
+
 Organization.create! name: 'Twiggystudios'
 
 

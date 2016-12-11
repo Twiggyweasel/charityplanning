@@ -1,5 +1,7 @@
-<td><%= contribution.contributor %></td>
-<td><%= number_to_currency(contribution.amount) %></td>
-<td><% if !contribution.in_honor? %>N/A <% else %> <%= contribution.honoree %> <% end %></td>
-<td><%= contribution.created_at.strftime("%B %d, %Y") %></td>
-<td>edit | delete</td>
+<tr>
+  <td><%= contribution.contributor %></td>
+  <td><%= number_to_currency(contribution.amount) %></td>
+  <td><% if !contribution.in_honor? %>N/A <% else %> <%= contribution.honoree %> <% end %></td>
+  <td><%= contribution.created_at.strftime("%B %d, %Y") %></td>
+  <td>edit | delete</td>
+</tr>

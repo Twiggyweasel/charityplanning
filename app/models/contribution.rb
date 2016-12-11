@@ -1,8 +1,13 @@
 class Contribution < ApplicationRecord
-   belongs_to :event 
-   
-   validates :amount, presence: true
-   
+  belongs_to :event 
+  
+  validates :amount, presence: true
+  
+  
+  after_save do 
+    if !self.honoree.blank?
+      self.update_column(:in_honor, true)
+    end
+  end
 
-   
 end

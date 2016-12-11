@@ -38,6 +38,28 @@
     </div>
   </div>
 </div>
+
+<div class='row'>
+  <div class='col-md-6 offset-md-3'>
+    <div class='card card-block square-item'>
+      <h4 class='card-tile'>Select A Team</h4>
+        <%= f.select( :team_id, options_for_select(@event.teams.collect {|x| [x.name, x.id] }), {}, class: 'form-control') %>
+    </div>
+  </div>
+</div>
+
+<!--<div class='row'>-->
+<!--  <div class='col-md-6 offset-md-3'>-->
+<!--    <div class='card card-block square-item'>-->
+<!--      <h4 class='card-tile'>Select A Team</h4>-->
+<!--        <#%= f.fields_for :teams do |ft| %>-->
+<!--          <#%= ft.label :name %>-->
+<!--          <#%= ft.text_field :name, class: 'form-control' %>-->
+<!--        <#% end %>-->
+          
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <div class='row'>
   <div class='col-md-6 offset-md-3'>
     <div class='card card-block square-item'>

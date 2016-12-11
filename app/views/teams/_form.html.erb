@@ -1,0 +1,6 @@
+<%= form_for( [event, attendee, team] ) do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name, class: 'form-control' %>
+<%= f.submit 'Create Team', class: 'btn btn-success' %>
+<% end %>

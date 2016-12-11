@@ -1,5 +1,4 @@
 class Team < ApplicationRecord
-  has_one :attendee
   belongs_to :event
-  
+  has_many :attendees
 end

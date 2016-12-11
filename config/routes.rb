@@ -9,13 +9,19 @@ Rails.application.routes.draw do
     resources :attendees, only: [:new, :create, :show] do
       resources :guests
     end
+    resources :teams
     resources :registration_fees
     resources :coupons
     resources :build, controller: 'events/build'
     get '/attributes', to: 'events#event_attributes'
   end
   
-  
+  resources :users, except: [:new] 
+  get '/login', to: "sessions#new"
+  post '/login', to: "sessions#create"
+  get '/logout', to: "sessions#destroy"
+    
+  get '/register', to: 'users#new'
   
   resources :organizations
 end

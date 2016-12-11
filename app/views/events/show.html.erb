@@ -1,6 +1,14 @@
 <%= render 'layouts/messages' %>
+
 <%= render 'admin/event_admin', event: @event %>
-<div class="row">
+  <%= link_to(events_path, class: 'btn btn-primary') do %>
+    <i class='fa fa-chevron-circle-left'></i> Back to Events
+  <% end %>
+  <%= link_to(organization_path(@event.organization_id), class: 'btn btn-primary float-xs-right') do %>
+    View Organization <i class='fa fa-chevron-circle-right'></i>
+  <% end %>
+
+<div class="row mt-1">
   <!--<img src="https://placehold.it/1200x250/39BDBD/ffffff" class="img-fluid mx-auto d-block" >-->
   <%= image_tag(@event.event_cover.url, class: 'img-fluid mx-auto d-block', style: 'max-height:460px') if @event.event_cover? %>
   <!--<img src='<#%= asset_path("walk-wide.jpg") %>' class='img-fluid mx-auto d-block', style='max-height:460px'>-->
@@ -12,21 +20,19 @@
       
       <h1><%= @event.name %></h1>
       <h3>
-      <!--<#%= @event.date.strftime("%A, %B %d %Y") %>-->
+      <%= @event.date.strftime("%A, %B %d %Y") %>
       </h3>
     </div>
     <div class='row mt-1 pl-1'>
-      <%= link_to 'Register', new_event_attendee_path(@event), class: 'btn btn-square btn-success' %>
+      <!--<#%= link_to 'Register', new_event_attendee_path(@event), class: 'btn btn-square btn-success' %>-->
     <!--  <#% if !@attending %>-->
-    <!--<div class="btn-group">-->
-    <!--  <button type="button" class="btn btn-success btn-square dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-    <!--    Register-->
-    <!--  </button>-->
-    <!--  <div class="dropdown-menu">-->
-    <!--    <#%= link_to 'Single Registration', new_event_attendee_path(@event), class: "dropdown-item" %>-->
-    <!--    <#%= link_to 'Team Registration', new_team_path(:event => @event), class: "dropdown-item" %>-->
-    <!--  </div>-->
-    <!--</div>-->
+    <div class="btn-group">
+    <button type="button" class="btn btn-success btn-square dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</button>
+      <div class="dropdown-menu">
+        <%= link_to 'Single Registration', new_event_attendee_path(@event), class: "dropdown-item" %>
+        <!--<#%= link_to 'Team Registration', new_event_team_path(@event), class: "dropdown-item" %>-->
+      </div>
+    </div>
     <!--<#% else %>-->
     <!--<#%= link_to event_attendee_path(@event, current_user.attendees.find_by(event_id: @event)) do %>-->
     <!--  <btn class='btn btn-success'>Manage Registration <#% if !current_user.attendees.find_by(event_id: @event).is_paid %><i class='fa fa-exclamation-circle'></i><#% end %></btn>-->
@@ -45,7 +51,7 @@
     <div class="row my-3 px-1">
       <div class="col-xs-4 text-xs-center">
         <div class="card card-block card-callout mb-0">
-          <h1>0</h1>
+          <h1><%= @event.teams.count %></h1>
           <p>Teams</p>
         </div>
       </div>
@@ -62,29 +68,126 @@
         </div>
       </div>
     </div>
+    
+    
     <div class='row px-1'>
-      <div class='card card-block item-square'>
-        <% if !@event.desc.nil? %>
-        <%= @event.desc.html_safe %>
-        <% end %>
-      </div>
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#desc" role="tab">Event Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#teams" role="tab">Teams</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#attendees" role="tab">Attendees</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#contributions" role="tab">Contributions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#comments" role="tab">Comments</a>
+      </li>
+    </ul>
     </div>
-   
+    <!-- Tab panes -->
     <div class='row px-1'>
-      <h2>Comments</h2>
+    <div class="tab-content mt-1" style='min-height:460px;'>
+      <div class="tab-pane fade in active" id="desc" role="tabpanel">
+        <div class='card card-block card-height card-highlight'>
+          <% if !@event.desc.nil? %>
+            <%= @event.desc.html_safe %>
+          <% end %>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="teams" role="tabpanel">
+        <div class='card card-block card-height card-highlight'>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Team Name</th>
+                <th>Team Members</th>
+                <th>Raised</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @event.teams.each do |team| %>
+              <tr>
+                <td><%= team.name %></td>
+                <td>1</td>
+                <td>$100.00</td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="attendees" role="tabpanel">
+        <div class='card card-block card-height card-highlight'>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Attendee Name</th>
+                <th>Guests</th>
+                <th>Raised</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @event.attendees.each do |attendee| %>
+              <tr>
+                <td>User Name</td>
+                <td><%= attendee.guests.count %></td>
+                <td><%= number_to_currency(attendee.attendee_total)  %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="contributions" role="tabpanel">
+        <div class='card card-block card-height card-highlight'>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="comments" role="tabpanel">
+        <!--<h2>Comments</h2>-->
       
-      <div class='row px-1'>
-        <div class='card card-block'>
+        <div class='row px-1'>
+        <div class='card card-block card-highlight'>
           
           <%= render 'comments/new', event: @event %>
           
         </div>
-      </div>
-      <div id='comments'>
+        </div>
+        <div id='comments'>
         
-        <%= render @event.comments %>
+          <%= render @event.comments %>
+        
+        </div>
       </div>
     </div>
+    </div>
+    <!--<div class='row px-1'>-->
+    <!--  <div class='card card-block item-square'>-->
+    <!--    <#% if !@event.desc.nil? %>-->
+    <!--    <#%= @event.desc.html_safe %>-->
+    <!--    <#% end %>-->
+    <!--  </div>-->
+    <!--</div>-->
+   
+    <!--<div class='row px-1'>-->
+    <!--  <h2>Comments</h2>-->
+      
+    <!--  <div class='row px-1'>-->
+    <!--    <div class='card card-block'>-->
+          
+    <!--      <#%= render 'comments/new', event: @event %>-->
+          
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div id='comments'>-->
+        
+    <!--    <#%= render @event.comments %>-->
+    <!--  </div>-->
+    <!--</div>-->
   </div>
 
  <div class='col-xs-4 card-style'>

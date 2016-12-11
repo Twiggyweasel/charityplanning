@@ -39,7 +39,7 @@ class ContributionsController < ApplicationController
     end
     
     def contribution_params
-      params.required(:contribution).permit(:amount, :in_honor, :honoree, :contributor, :contribution_type)
+      params.required(:contribution).permit(:amount, :in_honor, :honoree, :contributor, :comment, :contribution_type)
     end
      
 end

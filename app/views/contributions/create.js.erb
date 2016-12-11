@@ -1,4 +1,13 @@
+<!-- contribution partial prepend-->
 $("#offline_contributions").prepend("<%= escape_javascript(render 'contributions/contribution', contribution: @contribution ) %>");
+
+<!-- form clear-->
 $("#contributor").val("");
 $("#contribution_amount").val("");
 $("#honoree").val("");
+
+
+<!-- callout cards update-->
+$("#contribution-summary").text("<%= escape_javascript( number_to_currency( @contribution.event.raised ) ) %>");
+$("#contribution-count").text("<%= escape_javascript( @contribution.event.contributions.where(:contribution_type => 'offline').count.to_s) %> ");
+$("#contribution-total").text("<%= escape_javascript( @contribution.event.contributions.count.to_s) %>");

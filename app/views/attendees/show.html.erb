@@ -1,12 +1,24 @@
 <%= render 'shared/page_title', title: 'Registration Details for ' + @attendee.event.name %>
-
+<div class='row pb-1'>
+  <%= link_to(event_path(@event), class: 'btn btn-primary btn-square') do %>
+    <i class='fa fa-chevron-circle-left'></i> Return to Event
+  <% end %>
+</div>
 <div class='row'>
     <div class='col-md-8'>
         <div class='row'>
         <div class='card card-block'>
             <h3 class='card-title'>Include Users Name</h3>
             <p>Registration: Adult | Shirt Size: <%= @attendee.shirt_size %></p>
-            <p>Team: <!--<#%= @attendee.team.name %> <#%= link_to 'Change Team', edit_event_attendee_path(@attendee.event_id), class: 'btn btn-primary btn-sm' %> --></p>     
+            <p>Team: 
+            <!--<#%= @attendee.team.name %> <#%= link_to 'Change Team', edit_event_attendee_path(@attendee.event_id), class: 'btn btn-primary btn-sm' %> -->
+            <% if @attendee.team_id.nil? %>
+              <a href='' class='btn btn-primary btn-square btn-sm'><i class='fa fa-group'></i> Join</a> 
+              <a href='' class='btn btn-sm btn-square btn-success'><i class='fa fa-plus'></i> Create</a> 
+            <% else %>  
+              <%= @attendee.team.name %>
+            <% end %>
+            </p>     
             
 
         </div>

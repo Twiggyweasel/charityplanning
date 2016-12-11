@@ -1,0 +1,17 @@
+<div class='col-md-4'>
+  <div class='card'>
+    <% if !organization.org_cover.blank? %>
+      <%= image_tag(organization.org_cover.url, class:'card-img-top img-fluid') %>
+    <% else %>
+    <img class="card-img-top img-fluid" src="https://placehold.it/337x130" alt="Card image cap">
+    <% end %>
+    <div class="card-block">
+      <h4 class="card-title"><%= organization.name %></h4>
+      <p class="card-text"><%= organization.desc %></p>
+      <%= link_to 'View', organization_path(organization), class: 'btn btn-square btn-primary' %>
+    </div>
+    <div class="card-footer text-muted">
+    Active Events: <%= organization.events.count %>
+  </div>
+  </div>
+</div>

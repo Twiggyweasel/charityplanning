@@ -8,11 +8,11 @@ class AttendeesController < ApplicationController
   def new
     @attendee = @event.attendees.new
     @attendee.guests.build
+
   end
   
   def create
     @attendee = @event.attendees.new(attendee_params)
-     
     respond_to do |format|
       if @attendee.save
         format.html { redirect_to event_attendee_url(@attendee.event_id, @attendee.id), :flash => { :success => 'Your registration was successfully completed.' }}
@@ -21,6 +21,8 @@ class AttendeesController < ApplicationController
         format.json { render json: @attendee.errors, status: :unprocessable_entity }
       end
     end
+    
+    
   end
   
   
@@ -30,6 +32,7 @@ class AttendeesController < ApplicationController
     end
     
     def attendee_params
-      params.required(:attendee).permit(:fee, :shirt_size, :paid, guests_attributes: [:id, :fee, :name, :shirt_size])
+      params.required(:attendee).permit(:fee, :shirt_size, :paid, :team_id, guests_attributes: [:id, :fee, :name, :shirt_size])
     end
+
 end

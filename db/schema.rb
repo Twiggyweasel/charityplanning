@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202154952) do
+ActiveRecord::Schema.define(version: 20161211203454) do
 
   create_table "attendees", force: :cascade do |t|
     t.float    "fee"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20161202154952) do
     t.integer  "organization_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "team_id"
     t.index ["event_id"], name: "index_attendees_on_event_id"
     t.index ["organization_id"], name: "index_attendees_on_organization_id"
+    t.index ["team_id"], name: "index_attendees_on_team_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -38,6 +40,7 @@ ActiveRecord::Schema.define(version: 20161202154952) do
     t.string   "honoree"
     t.string   "contribution_type"
     t.string   "contributor"
+    t.text     "comment"
     t.boolean  "paid",              default: true
     t.integer  "event_id"
     t.datetime "created_at",                        null: false
@@ -116,8 +119,26 @@ ActiveRecord::Schema.define(version: 20161202154952) do
     t.index ["event_id"], name: "index_registration_fees_on_event_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "sizes", force: :cascade do |t|
     t.text "label"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string  "name"
+    t.integer "max_size"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_teams_on_event_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string  "email"
+    t.string  "password_digest"
+    t.integer "roles_id"
+    t.index ["roles_id"], name: "index_users_on_roles_id"
   end
 
 end
