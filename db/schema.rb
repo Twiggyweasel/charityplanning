@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211203454) do
+ActiveRecord::Schema.define(version: 20161211215857) do
 
   create_table "attendees", force: :cascade do |t|
     t.float    "fee"
@@ -21,9 +21,11 @@ ActiveRecord::Schema.define(version: 20161211203454) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "team_id"
+    t.integer  "user_id"
     t.index ["event_id"], name: "index_attendees_on_event_id"
     t.index ["organization_id"], name: "index_attendees_on_organization_id"
     t.index ["team_id"], name: "index_attendees_on_team_id"
+    t.index ["user_id"], name: "index_attendees_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -45,7 +47,9 @@ ActiveRecord::Schema.define(version: 20161211203454) do
     t.integer  "event_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "user_id"
     t.index ["event_id"], name: "index_contributions_on_event_id"
+    t.index ["user_id"], name: "index_contributions_on_user_id"
   end
 
   create_table "coupons", force: :cascade do |t|
@@ -110,6 +114,18 @@ ActiveRecord::Schema.define(version: 20161211203454) do
     t.string   "org_cover"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.date    "dob"
+    t.string  "street"
+    t.string  "city"
+    t.string  "state"
+    t.string  "zip"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "registration_fees", force: :cascade do |t|
     t.string   "name"
     t.float    "amount"
@@ -138,6 +154,8 @@ ActiveRecord::Schema.define(version: 20161211203454) do
     t.string  "email"
     t.string  "password_digest"
     t.integer "roles_id"
+    t.integer "profile_id"
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["roles_id"], name: "index_users_on_roles_id"
   end
 

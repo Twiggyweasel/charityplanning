@@ -8,6 +8,7 @@ class Event < ApplicationRecord
   has_many :coupons
   has_many :registration_fees
   has_many :teams
+  has_many :users, through: :attendees
   
   accepts_nested_attributes_for :teams
   

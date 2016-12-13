@@ -2,6 +2,9 @@
   <% if contribution.errors.any? %>
     <%= render "shared/errors", errors: contribution.errors %>
   <% end %>
+  <% if logged_in? %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+  <% end %>
   <%= f.hidden_field :contribution_type, value: 'online' %>
   <div class='row'>
     <div class='col-xs-12'>

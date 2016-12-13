@@ -1,5 +1,6 @@
 class AttendeesController < ApplicationController
   before_action :set_event, only: [ :new, :create, :show ]
+  before_action :require_user, only: [ :new, :create ]
   
   def show
     @attendee = @event.attendees.find(params[:id])
@@ -32,7 +33,7 @@ class AttendeesController < ApplicationController
     end
     
     def attendee_params
-      params.required(:attendee).permit(:fee, :shirt_size, :paid, :team_id, guests_attributes: [:id, :fee, :name, :shirt_size])
+      params.required(:attendee).permit(:fee, :shirt_size, :paid, :team_id, :user_id, guests_attributes: [:id, :fee, :name, :shirt_size])
     end
 
 end

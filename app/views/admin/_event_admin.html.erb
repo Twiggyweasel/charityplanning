@@ -2,10 +2,10 @@
   <div class='col-xs-12'>
     <div class='card card-block'>
       <h4>Event Controls</h4>
-      <%= link_to 'Manage Event', event_attributes_path(event), class: 'btn btn-square btn-primary' %>
+      <%= link_to(event_attributes_path(event), class: 'btn btn-square btn-primary') do %> <i class='fa fa-sliders'></i> Dashboard <% end %>
       <div class='float-xs-right'>
-        <%= link_to 'Edit Event', edit_event_path(event), class: 'btn btn-square btn-warning' %>
-        <%= link_to 'Delete Delete', edit_event_path(event), class: 'btn btn-square btn-danger' %>
+        <%= link_to(edit_event_path(event), class: 'btn btn-square btn-warning') do %> <i class='fa fa-pencil'></i> Edit <% end %>
+        <%= link_to(edit_event_path(event), class: 'btn btn-square btn-danger') do %><i class="fa fa-trash-o"></i> Delete <% end %>
       </div>
     </div>
   </div>
