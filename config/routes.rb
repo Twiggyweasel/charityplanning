@@ -16,12 +16,14 @@ Rails.application.routes.draw do
     get '/attributes', to: 'events#event_attributes'
   end
   
-  resources :users, except: [:new] 
-  get '/login', to: "sessions#new"
-  post '/login', to: "sessions#create"
-  get '/logout', to: "sessions#destroy"
-    
-  get '/register', to: 'users#new'
+  match '/auth/:provider/callback', to: 'session#create', via: [:get, :post] #omniauth route
+  match '/register', to: 'users#new', via: [:get, :post]
+  
+  match '/login', to: 'session#new', via: [:get, :post]
+  match '/logout', to: 'session#destroy', via: [:get, :post]
+  resources :users #needed by omniauth-identity
   
   resources :organizations
+  
+
 end

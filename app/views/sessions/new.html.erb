@@ -1,11 +1,11 @@
 <div class='col-md-6 offset-md-3 mt-3'>
   <div class='card card-rel text-xs-center'>
-    <div class='header header-success'>
+    <div class='header header-primary'>
       <h3>Login</h3>
       <ul class='nav nav-inline pt-1'>
-        <li class='nav-item'><a href='#' class='nav-link'><i class='fa fa-facebook-official w social-icon'></i></a></li>
-        <li class='nav-item'><a href='#' class='nav-link'><i class='fa fa-twitter w social-icon'></i></a></li>
-        <li class='nav-item'><a href='#' class='nav-link'><i class='fa fa-google-plus w social-icon'></i></a></li>
+        <li class='nav-item'><%= link_to('auth/facebook', class: 'nav-link') do %><i class='fa fa-facebook-official fa-2x w social-icon'></i><% end %></li>
+        <li class='nav-item'><%= link_to('auth/twitter', class: 'nav-link') do %><i class='fa fa-twitter fa-2x w social-icon'></i><% end %></li>
+        <li class='nav-item'><%= link_to('auth/google_oauth2', class: 'nav-link') do %><i class='fa fa-google-plus fa-2x w social-icon'></i><% end %></li>
       </ul>
     </div>
     

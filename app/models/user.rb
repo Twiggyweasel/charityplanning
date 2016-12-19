@@ -1,6 +1,5 @@
-class User < ApplicationRecord
+class User < OmniAuth::Identity::Models::ActiveRecord
   has_one :role
-  has_one :profile, inverse_of: :user
   has_many :attendees
   has_many :guests, through: :attendees
   has_many :events, through: :attendees
@@ -8,19 +7,31 @@ class User < ApplicationRecord
   has_many :contributions
   
   
-  has_secure_password
+ # has_secure_password
+  has_many :authentications
   
-  accepts_nested_attributes_for :profile
-  
+  # email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  after_save do 
-    if self.profile_id.nil?
-      self.update_column(:profile_id, Profile.find_by(:user_id => self.id).id )
-    end
-  end
+  # validates :email, :presence   => true,
+  #           :format     => { :with => email_regex },
+  #           :uniqueness => { :case_sensitive => false }
   
-  def full_name
-    self.profile.first_name + ' ' + self.profile.last_name
+  def self.create_with_omniauth(auth)
+    # you should handle here different providers data
+    # eg. case auth['provider'] ..
+    case auth['provider']
+    when 'facebook'
+      create(name: auth['info']['name'], password: rand(36**10).to_s(36), email: auth['info']['email'])
+    when 'google_oauth2'
+      create(name: auth['info']['name'], password: rand(36**10).to_s(36), email: auth['info']['email'])
+    when 'twitter'
+      create(name: auth['info']['name'], password: rand(36**10).to_s(36))
+    else
+      create(name: auth['info']['name'])
+    end
+    # IMPORTANT: when you're creating a user from a strategy that
+    # is not identity, you need to set a password, otherwise it will fail
+    # I use: user.password = rand(36**10).to_s(36)
   end
   
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211215857) do
+ActiveRecord::Schema.define(version: 20161219043235) do
 
   create_table "attendees", force: :cascade do |t|
     t.float    "fee"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20161211215857) do
     t.index ["organization_id"], name: "index_attendees_on_organization_id"
     t.index ["team_id"], name: "index_attendees_on_team_id"
     t.index ["user_id"], name: "index_attendees_on_user_id"
+  end
+
+  create_table "authentications", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_authentications_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -151,12 +160,11 @@ ActiveRecord::Schema.define(version: 20161211215857) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "email"
-    t.string  "password_digest"
-    t.integer "roles_id"
-    t.integer "profile_id"
-    t.index ["profile_id"], name: "index_users_on_profile_id"
-    t.index ["roles_id"], name: "index_users_on_roles_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

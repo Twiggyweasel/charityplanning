@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
   
+  def show 
+    @user = User.find(params[:id])
+  end
+  
   def new
-    @user = User.new
-    @user.build_profile
+    @user = env['omniauth.identity'] ||= User.new
   end
   
   def create 
@@ -21,6 +24,6 @@ class UsersController < ApplicationController
   private 
   
     def user_params
-      params.required(:user).permit(:email, :password, :profile_id,  profile_attributes: [:id, :first_name, :last_name])
+      params.required(:user).permit(:email, :password)
     end
 end

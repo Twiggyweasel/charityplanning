@@ -28,6 +28,3 @@ RegistrationFee.create! name: 'Adult', amount: 25.00, event_id: 1
 RegistrationFee.create! name: 'Child', amount: 10.00, event_id: 1
 RegistrationFee.create! name: 'Adult', amount: 25.00, event_id: 2
 RegistrationFee.create! name: 'Child', amount: 10.00, event_id: 2
-
-User.create! email: 'orsusbass@gmail.com', password: 'hat21day'
-Profile.create! first_name: 'Richard', last_name: 'Wise', user_id: 1

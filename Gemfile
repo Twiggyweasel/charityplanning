@@ -35,7 +35,10 @@ gem "font-awesome-rails"
 gem 'tinymce-rails'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem "fog-aws"
-
+gem 'omniauth-twitter'
+gem "omniauth-google-oauth2"
+gem 'omniauth-facebook'
+gem 'omniauth-identity'
 
 gem 'wicked'
 source 'https://rails-assets.org' do
