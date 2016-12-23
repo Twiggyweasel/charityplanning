@@ -1,9 +1,8 @@
 class SessionsController < ApplicationController
-   before_action :already_user, only: [ :new ]
    
-   def new
+  def new
    
-   end
+  end
    
   def create
     user = User.find_by(email: params[:email])
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
         redirect_to events_path
       # end
     else
-      flash.now[:danger] = "Your email address or password doesn't match our records"
+      flash[:danger] = "Your email address or password doesn't match our records"
       render 'new'
     end
   end

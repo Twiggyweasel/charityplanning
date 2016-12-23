@@ -123,18 +123,6 @@ ActiveRecord::Schema.define(version: 20161219043235) do
     t.string   "org_cover"
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.string  "first_name"
-    t.string  "last_name"
-    t.date    "dob"
-    t.string  "street"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
   create_table "registration_fees", force: :cascade do |t|
     t.string   "name"
     t.float    "amount"
